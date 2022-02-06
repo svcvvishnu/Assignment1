@@ -63,7 +63,11 @@ public class MySQLDBManager {
 
     public void createDatabase(String dbname) throws SQLException {
         Statement s = getConnection().createStatement();
-        s.executeUpdate("DROP DATABASE " + dbname);
+        try {
+            s.executeUpdate("DROP DATABASE " + dbname);
+        } catch (SQLException e) {
+
+        }
 
         s = getConnection().createStatement();
         s.executeUpdate("CREATE DATABASE " + dbname);
@@ -80,7 +84,8 @@ public class MySQLDBManager {
         Statement s = getDBConnection().createStatement();
         String values = Arrays.stream(record.split(",")).collect(Collectors.joining("','","'","'"));
         System.out.println(values);
-        String insert = String.format(Constants.INSERT, tableName, cols, values);
+        String colNames = Arrays.stream(cols.split(",")).collect(Collectors.joining("`,`","`","`"));
+        String insert = String.format(Constants.INSERT, tableName, colNames, values);
         System.out.println(insert);
         s.executeUpdate(insert);
     }

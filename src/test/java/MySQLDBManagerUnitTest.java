@@ -1,22 +1,19 @@
-import Exceptions.DatabaseNotFoundException;
-import Exceptions.InvalidDatabaseNameException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.io.File;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
 public class MySQLDBManagerUnitTest {
-    QueryCommand cmd;
 
     @Mock
     MySQLDBManager dbMgr;
