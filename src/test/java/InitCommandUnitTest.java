@@ -22,7 +22,7 @@ public class InitCommandUnitTest {
 
     @Test
     public void test() throws FileNotFoundException, SQLException {
-        cmd = new InitCommand(dbMgr, "Book.csv");
+        cmd = new InitCommand(dbMgr, "src/main/resources/Book.csv");
         doNothing().when(dbMgr).createDatabase(Constants.DATABASE);
         doNothing().when(dbMgr).createTable(anyString(),anyList());
         doNothing().when(dbMgr).insertRecords(anyString(),anyString(), anyString());
@@ -32,14 +32,14 @@ public class InitCommandUnitTest {
 
     @Test(expected = RuntimeException.class)
     public void testCreateDBFail() throws FileNotFoundException, SQLException {
-        cmd = new InitCommand(dbMgr, "Book.csv");
+        cmd = new InitCommand(dbMgr, "src/main/resources/Book.csv");
         doThrow(new SQLException()).when(dbMgr).createDatabase(Constants.DATABASE);
         cmd.run();
     }
 
     @Test(expected = RuntimeException.class)
     public void testCreateTableFail() throws FileNotFoundException, SQLException {
-        cmd = new InitCommand(dbMgr, "Book.csv");
+        cmd = new InitCommand(dbMgr, "src/main/resources/Book.csv");
         doNothing().when(dbMgr).createDatabase(Constants.DATABASE);
         doThrow(new SQLException()).when(dbMgr).createDatabase(Constants.DATABASE);
         cmd.run();
@@ -47,7 +47,7 @@ public class InitCommandUnitTest {
 
     @Test(expected = RuntimeException.class)
     public void testInsertFail() throws FileNotFoundException, SQLException {
-        cmd = new InitCommand(dbMgr, "Book.csv");
+        cmd = new InitCommand(dbMgr, "src/main/resources/Book.csv");
         doNothing().when(dbMgr).createDatabase(Constants.DATABASE);
         doThrow(new SQLException()).when(dbMgr).createDatabase(Constants.DATABASE);
         doNothing().when(dbMgr).createTable(anyString(),anyList());

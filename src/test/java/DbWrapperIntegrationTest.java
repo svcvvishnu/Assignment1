@@ -23,7 +23,7 @@ public class DbWrapperIntegrationTest {
 
     @Test
     public void testMainInit() throws Exception {
-        String[] args = new String[]{"init", "Book.csv"};
+        String[] args = new String[]{"init", "src/main/resources/Book.csv"};
         DbWrapper.main(args);
     }
 
@@ -35,21 +35,21 @@ public class DbWrapperIntegrationTest {
 
     @Test(expected = InvalidArgumentsException.class)
     public void testInitInvalidArgs() throws Exception {
-        String[] args = new String[]{"init", "abc", "OnlyHeader.csv"};
+        String[] args = new String[]{"init", "abc", "src/main/resources/OnlyHeader.csv"};
         DbWrapper.main(args);
     }
 
     @Test(expected = InvalidArgumentsException.class)
     public void testQueryInvalidArgs() throws Exception {
-        String[] args = new String[]{"query", Constants.DATABASE, "abc", "Select * from ONLYHEADER"};;
+        String[] args = new String[]{"query", Constants.DATABASE, "abc", "Select * from OnlyHeader"};;
         DbWrapper.main(args);
     }
 
     @Test
     public void testInitOnlyHeaderCSV() throws Exception {
-        String[] args = new String[]{"init", "OnlyHeader.csv"};
+        String[] args = new String[]{"init", "src/main/resources/OnlyHeader.csv"};
         DbWrapper.main(args);
-        args = new String[]{"query", Constants.DATABASE, "Select * from ONLYHEADER"};
+        args = new String[]{"query", Constants.DATABASE, "Select * from OnlyHeader"};
         DbWrapper.main(args);
         File f = new File("results.csv");
         Assert.assertTrue(f.exists());
@@ -57,7 +57,7 @@ public class DbWrapperIntegrationTest {
 
     @Test(expected = InvalidCSVFileException.class)
     public void testInitEmptyCsv() throws Exception {
-        String[] args = new String[]{"init", "EmptyCSV.csv"};
+        String[] args = new String[]{"init", "src/main/resources/EmptyCSV.csv"};
         DbWrapper.main(args);
     }
 
@@ -69,15 +69,15 @@ public class DbWrapperIntegrationTest {
 
     @Test(expected = DatabaseNotFoundException.class)
     public void testMainQueryNoDB() throws Exception {
-        String[] args = new String[]{"query", Constants.DATABASE, "Select * from BOOK"};
+        String[] args = new String[]{"query", Constants.DATABASE, "Select * from Book"};
         DbWrapper.main(args);
     }
 
     @Test
     public void testMainQuery() throws Exception {
-        String[] args = new String[]{"init", "Book.csv"};
+        String[] args = new String[]{"init", "src/main/resources/Book.csv"};
         DbWrapper.main(args);
-        args = new String[]{"query", Constants.DATABASE, "Select * from BOOK"};
+        args = new String[]{"query", Constants.DATABASE, "Select * from Book"};
         DbWrapper.main(args);
         File f = new File("results.csv");
         Assert.assertTrue(f.exists());

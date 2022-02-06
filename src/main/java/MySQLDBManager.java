@@ -77,17 +77,14 @@ public class MySQLDBManager {
     public void createTable(String tableName, List<String> cols) throws SQLException {
         Statement s = getDBConnection().createStatement();
         String createTableStmt = String.format(Constants.CREATE_TABLE, tableName, constructColNames(cols));
-        System.out.println(createTableStmt);
         s.executeUpdate(createTableStmt);
     }
 
     public void insertRecords(String tableName, String cols, String record) throws SQLException {
         Statement s = getDBConnection().createStatement();
         String values = Arrays.stream(record.split(",")).collect(Collectors.joining("','","'","'"));
-        System.out.println(values);
         String colNames = Arrays.stream(cols.split(",")).collect(Collectors.joining("`,`","`","`"));
         String insert = String.format(Constants.INSERT, tableName, colNames, values);
-        System.out.println(insert);
         s.executeUpdate(insert);
     }
 

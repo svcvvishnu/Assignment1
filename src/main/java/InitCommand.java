@@ -14,7 +14,7 @@ public class InitCommand {
         File f = new File(fileLocation);
         fileName = f.getName();
         if(!fileName.split("\\.")[1].equals("csv")) throw new InvalidFileException("Not a csv file");
-        fileName = fileName.split("\\.")[0].toUpperCase(Locale.ROOT);
+        fileName = fileName.split("\\.")[0];
         br = new BufferedReader(new FileReader(fileLocation));
         this.dbMgr = dbMgr;
     }
@@ -24,7 +24,7 @@ public class InitCommand {
         try {
             line = br.readLine();
             if(line == null) throw new InvalidCSVFileException("CSV file is Empty");
-            dbMgr.createDatabase("Assignment1");
+            dbMgr.createDatabase(Constants.DATABASE);
             String cols = line;
             dbMgr.createTable(fileName, List.of(line.split(",")));
             while ((line = br.readLine()) != null) {
