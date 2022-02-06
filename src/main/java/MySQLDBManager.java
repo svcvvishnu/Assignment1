@@ -31,7 +31,7 @@ public class MySQLDBManager {
             userName = prop.getProperty("db.user");
             password = prop.getProperty("db.password");
         } catch (ClassNotFoundException | IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -51,6 +51,7 @@ public class MySQLDBManager {
         }
         return false;
     }
+
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
                 String.format("jdbc:mysql://%s:3306/?allowPublicKeyRetrieval=true&useSSL=false", url), userName, password);
@@ -66,7 +67,7 @@ public class MySQLDBManager {
         try {
             s.executeUpdate("DROP DATABASE " + dbname);
         } catch (SQLException e) {
-
+            //no-op Safety check to drop the database if it is already present
         }
 
         s = getConnection().createStatement();

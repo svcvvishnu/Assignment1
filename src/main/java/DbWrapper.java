@@ -4,7 +4,7 @@ public class DbWrapper {
 
     public static void main(String[] args) throws Exception {
         if (args == null) {
-            throw new Exception("Invalid argument length");
+            throw new InvalidArgumentsException("Invalid argument length");
         }
         if (args[0].equals(Constants.INIT)) {
             if (args.length != 2) {

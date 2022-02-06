@@ -1,3 +1,4 @@
+import Exceptions.InvalidCSVFileException;
 import Exceptions.InvalidFileException;
 
 import java.io.*;
@@ -22,7 +23,7 @@ public class InitCommand {
         String line = null;
         try {
             line = br.readLine();
-            if(line == null) throw new RuntimeException("CSV file is Empty");
+            if(line == null) throw new InvalidCSVFileException("CSV file is Empty");
             dbMgr.createDatabase("Assignment1");
             String cols = line;
             dbMgr.createTable(fileName, List.of(line.split(",")));
